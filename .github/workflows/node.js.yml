@@ -32,9 +32,7 @@ jobs:
 
     - name: Compress and Copy new files to server
       run: |
-            tar -czvf ../../app.tar.gz ./
-            cd ..
-            cd ..
+            tar -czvf app.tar.gz ./
             sudo sshpass -p "${{ secrets.SSH_PASS }}" scp -v -o
             StrictHostKeyChecking=no -r app.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:public_html/pantelismanikas/api.pantelismanikas.com
             
