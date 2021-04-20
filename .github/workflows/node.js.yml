@@ -11,13 +11,11 @@ on:
 
 jobs:
   build:
-
+ # using Ubuntu
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    defaults:
+      run:
+        working-directory: ./
 
     steps:
     - uses: actions/checkout@v2
