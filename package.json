@@ -1,0 +1,33 @@
+{
+  "name": "pantelis-manikas-portfolio-api",
+  "version": "1.0.0",
+  "description": "This is an API for Pantelis Manikas Portfolio",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.888.0",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "dotenv": "^8.2.0",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "keywords": [
+    "mongo",
+    "express",
+    "node",
+    "api",
+    "portfolio"
+  ],
+  "author": "Pantelis Manikas",
+  "license": "ISC"
+}
