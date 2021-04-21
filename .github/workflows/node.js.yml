@@ -24,15 +24,18 @@ jobs:
         node-version: '12.x'
     # - name: Install pacakges
     #   run: npm ci
+    
     - name: Delete Existing Files
       run: sudo sshpass -p "${{ secrets.SSH_PASS }}" -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'rm -rf public_html/pantelismanikas/api.pantelismanikas.com/*'
 
-    - name: Compress and Copy new files to server
+    - name: Compress new files
       run: |
             tar -czvf ../app.tar.gz ./
             cd ..
-            sudo sshpass -p "${{ secrets.SSH_PASS }}" scp -v -o
-            StrictHostKeyChecking=no -r app.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:public_html/pantelismanikas/api.pantelismanikas.com
+
+    - name: Copy new files to server
+      run: sudo sshpass -p "${{ secrets.SSH_PASS }}" scp -v -o
+            StrictHostKeyChecking=no -r app.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:public_html/pantelismanikas/api.pantelismanikas.com/
             
     - name: Uncompress new Files
       run : sudo sshpass -p "${{ secrets.SSH_PASS }}" -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd public_html/pantelismanikas/api.pantelismanikas.com && tar -xzvf app.tar.gz && npm ci && rm app.tar.gz'
