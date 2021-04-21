@@ -19,10 +19,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+    - uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '12.x'
     # - name: Install pacakges
     #   run: npm ci
     - name: Delete Existing Files
@@ -36,8 +35,3 @@ jobs:
             
     - name: Uncompress new Files
       run : sudo sshpass -p "${{ secrets.SSH_PASS }}" -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd public_html/pantelismanikas/api.pantelismanikas.com && tar -xzvf app.tar.gz && npm ci && rm app.tar.gz'
-            
-            
-            
-            
-            
