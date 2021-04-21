@@ -32,9 +32,7 @@ jobs:
       run: |
             tar -czvf ../app.tar.gz *
             cd ..
-
-    - name: Copy new files to server
-      run: sudo sshpass -p "${{ secrets.SSH_PASS }}" scp -v -o
+            sudo sshpass -p "${{ secrets.SSH_PASS }}" scp -v -o
             StrictHostKeyChecking=no -r app.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:public_html/pantelismanikas/api.pantelismanikas.com/
             
     - name: Uncompress new Files
