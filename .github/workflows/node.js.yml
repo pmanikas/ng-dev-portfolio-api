@@ -27,11 +27,14 @@ jobs:
     - name: Delete Existing Files
       run: sudo sshpass -p "${{ secrets.SSH_PASS }}" -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'rm -rf public_html/pantelismanikas/api.pantelismanikas.com/*'
 
-    - name: Compress and Copy new files to server
-      run: |
-            tar -czvf app.tar.gz ./
-            sudo sshpass -p "${{ secrets.SSH_PASS }}" scp -v -o
-            StrictHostKeyChecking=no -r app.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:public_html/pantelismanikas/api.pantelismanikas.com
+    # - name: Compress and Copy new files to server
+    #   run: |
+    #         tar -czvf app.tar.gz ./
+    #         sudo sshpass -p "${{ secrets.SSH_PASS }}" scp -v -o
+    #         StrictHostKeyChecking=no -r app.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:public_html/pantelismanikas/api.pantelismanikas.com
             
-    - name: Uncompress new Files
-      run : sudo sshpass -p "${{ secrets.SSH_PASS }}" -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd public_html/pantelismanikas/api.pantelismanikas.com && tar -xzvf app.tar.gz && npm ci && rm app.tar.gz'
+    # - name: Uncompress new Files
+    #   run : sudo sshpass -p "${{ secrets.SSH_PASS }}" -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd public_html/pantelismanikas/api.pantelismanikas.com && tar -xzvf app.tar.gz && npm ci && rm app.tar.gz'
+
+    - name: Send Files to Server
+      run : sudo sshpass -p "${{ secrets.SSH_PASS }}" -v scp -C -r ./ StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd public_html/pantelismanikas/api.pantelismanikas.com && npm ci'
