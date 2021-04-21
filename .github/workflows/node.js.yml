@@ -30,7 +30,7 @@ jobs:
 
     - name: Compress new files
       run: |
-            tar -czvf ../app.tar.gz .
+            tar -czvf ../app.tar.gz /*
             cd ..
 
     - name: Copy new files to server
