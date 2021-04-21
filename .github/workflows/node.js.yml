@@ -37,4 +37,7 @@ jobs:
     #   run : sudo sshpass -p "${{ secrets.SSH_PASS }}" -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd public_html/pantelismanikas/api.pantelismanikas.com && tar -xzvf app.tar.gz && npm ci && rm app.tar.gz'
 
     - name: Send Files to Server
-      run : sudo sshpass -p "${{ secrets.SSH_PASS }}" -v scp -C -r . StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd public_html/pantelismanikas/api.pantelismanikas.com && npm ci'
+      run :
+        | 
+        sudo sshpass -p "${{ secrets.SSH_PASS }}" -v 
+        scp -C -r . StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd public_html/pantelismanikas/api.pantelismanikas.com && npm ci'
