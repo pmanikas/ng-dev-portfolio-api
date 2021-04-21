@@ -22,15 +22,22 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '12.x'
-    # - name: Install pacakges
-    #   run: npm ci
+    - uses: actions/cache@v2 # this allows for re-using node_modules caching, making builds a bit faster.
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: NPM Install
+      run: npm install
 
     - name: Delete Existing Files
       run: sudo sshpass -p "${{ secrets.SSH_PASS }}" -v ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'rm -rf public_html/pantelismanikas/api.pantelismanikas.com/*'
 
     - name: Compress new files
       run: |
-            tar -czvf ../app.tar.gz *
+            tar -czvf ../app.tar.gz .
             cd ..
             sudo sshpass -p "${{ secrets.SSH_PASS }}" scp -r app.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:public_html/pantelismanikas/api.pantelismanikas.com
             
