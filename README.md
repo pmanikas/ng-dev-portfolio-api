@@ -1,20 +1,29 @@
 # Nodejs/Express Dev Portfolio Server
+
 This is a nodejs/express server that includes basic models, routes, s3 uploading and jwt auth.
 
 ## How to use
+
 ### Install Packages
-``` bash
+
+```bash
 npm install
 ```
+
 or
-``` bash
+
+```bash
 yarn install
 ```
+
 ### Start Server and Watch
-``` bash
+
+```bash
 npm run startwatch
 ```
+
 or
+
 ```
 yarn startwatch
 ```
