@@ -26,7 +26,7 @@ mongoose.connection.on("error", (error) => {
 const app = express();
 
 // Enables cors Middleware
-app.options('*', cors())
+app.use(cors());
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
