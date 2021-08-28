@@ -31,5 +31,8 @@
     "portfolio"
   ],
   "author": "Pantelis Manikas",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "is-svg": "^4.3.1"
+  }
 }
