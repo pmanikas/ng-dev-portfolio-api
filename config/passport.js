@@ -10,14 +10,10 @@ module.exports = function(passport) {
   passport.use(new JwtStrategy(options, (jwt_payload, done) => {
     User.getById(jwt_payload.data._id)
       .then(user => {
-        if(user) {
-          return done(null, user);
-        }else {
-          return done(null, false);
-        }
+        if(user) return done(null, user);
+        
+        return done(null, false);
       })
-      .catch(error => {
-        return done(error, false);
-      })
+      .catch(error => done(error, false))
   }))
-}
+};

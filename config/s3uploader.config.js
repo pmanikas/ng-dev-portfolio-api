@@ -13,7 +13,7 @@ const s3 = new aws.S3({
   region,
   accessKeyId,
   secretAccessKey
-})
+});
 
 module.exports = uploadToS3 = multer({
   storage: multerS3({
@@ -27,4 +27,4 @@ module.exports = uploadToS3 = multer({
       cb(null, finalFileName);
     }
   })
-})
+});

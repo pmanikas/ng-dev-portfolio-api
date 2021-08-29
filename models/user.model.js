@@ -31,6 +31,4 @@ const UserSchema = mongoose.Schema({
 const User = module.exports = mongoose.model('User', UserSchema);
 
 // Used by passport - DON'T delete until decoupled
-module.exports.getById = async function(id) {
-  return await User.findById(id);
-}
+module.exports.getById = async (id) => await User.findById(id);

@@ -14,14 +14,10 @@ mongoose.connect(config.database, {
 });
 
 // On connection
-mongoose.connection.on("connected", () => {
-  console.log('Connected to database ' + config.database);
-});
+mongoose.connection.on("connected", () => console.log('Connected to database ' + config.database));
 
 // On db error
-mongoose.connection.on("error", (error) => {
-  console.log('Database error ' + error);
-});
+mongoose.connection.on("error", (error) => console.log('Database error ' + error));
 
 const app = express();
 
@@ -43,6 +39,4 @@ require('./config/passport')(passport);
 require('./routes/index')(app);
 
 // Start Server
-app.listen(SERVER_PORT, () => {
-  console.log(`Server is running on http://localhost:${SERVER_PORT}`);
-});
+app.listen(SERVER_PORT, () => console.log(`Server is running on http://localhost:${SERVER_PORT}`));

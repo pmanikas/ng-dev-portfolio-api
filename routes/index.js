@@ -5,7 +5,6 @@ const services = require('./services.route');
 const uploader = require('./upload.route');
 
 module.exports = (app) => {
-
   app.use('/users', users); 
   app.use('/projects', projects); 
   app.use('/articles', articles); 
@@ -18,5 +17,4 @@ module.exports = (app) => {
   app.get('*', (req, res) => {
     res.send('Unauthorised');
   })
-
 }

@@ -7,4 +7,4 @@ const dbName = process.env.MONGO_DB_NAME;
 module.exports = {
   database: `mongodb+srv://${username}:${password}@${dbName}`,
   secret: 'yoursecret',
-} 
+};

@@ -1,5 +1,1 @@
-exports.upload = async (req, res, next) => {
-  res.send(req.file)
-}
-
-
+exports.upload = async (req, res) => res.send(req.file);
