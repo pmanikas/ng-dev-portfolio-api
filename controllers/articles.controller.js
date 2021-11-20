@@ -4,7 +4,6 @@ const article = Article;
 
 // Retrieve all Articles from the database.
 exports.getAll = (req, res) => {
-  res.send('plop')
   article.find({})
     .then(data => res.send(data))
     .catch(error => res.status(500).send({ message: error.message }));
