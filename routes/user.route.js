@@ -7,7 +7,9 @@ const authGuard = passport.authenticate('jwt', { session: false });
 
 // Validate
 router.get('/validate', (req, res, next) => {
-  res.send('VALIDATE');
+  res.send('VALIDATE')
+    .then(_data => res.send())
+    .catch(error => res.status(500).send({ message: error.message }));
 });
 
 // Authenticate

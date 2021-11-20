@@ -14,6 +14,7 @@ module.exports = (app) => {
   app.get('/', (req, res) => {
     res.send('Unauthorised');
   })
+
   app.get('*', (req, res) => {
     res.send('Unauthorised');
   })
