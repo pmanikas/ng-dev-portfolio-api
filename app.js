@@ -8,12 +8,10 @@ const config = require('./config/database');
 const SERVER_PORT = process.env.PORT || 3100;
 
 // Connect to Database
-const connectDB = async () => {
-  await mongoose.connect(config.database, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-}
+mongoose.connect(config.database, { 
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 // On connection
 mongoose.connection.on("connected", () => console.log('Connected to database ' + config.database));
@@ -21,31 +19,24 @@ mongoose.connection.on("connected", () => console.log('Connected to database ' +
 // On db error
 mongoose.connection.on("error", (error) => console.log('Database error ' + error));
 
+const app = express();
 
-const runApp = async () => {
-  await connectDB();
+// Enables cors Middleware
+app.use(cors());
 
-  const app = express();
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-  // Enables cors Middleware
-  app.use(cors());
+// Body Parser replace as it was depricated
+app.use(express.json({ limit: '10mb' }));
 
-  // Set Static Folder
-  app.use(express.static(path.join(__dirname, 'public')));
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 
-  // Body Parser replace as it was depricated
-  app.use(express.json({ limit: '10mb' }));
+// Call routes
+require('./routes/index')(app);
 
-  // Passport Middleware
-  app.use(passport.initialize());
-  app.use(passport.session());
-  require('./config/passport')(passport);
-
-  // Call routes
-  require('./routes/index')(app);
-
-  // Start Server
-  app.listen(SERVER_PORT, () => console.log(`Server is running on http://localhost:${SERVER_PORT}`));
-}
-
-runApp();
+// Start Server
+app.listen(SERVER_PORT, () => console.log(`Server is running on http://localhost:${SERVER_PORT}`));
