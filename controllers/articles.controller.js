@@ -2,8 +2,13 @@ const Article = require("../models/article.model");
 
 const article = Article;
 
+require('dotenv').config();
+
+const username = process.env.MONGO_DB_USERNAME;
+
 // Retrieve all Articles from the database.
 exports.getAll = (req, res) => {
+  res.send(username)
   article.find({})
     .then(data => res.send(data))
     .catch(error => res.status(500).send({ message: error.message }));
