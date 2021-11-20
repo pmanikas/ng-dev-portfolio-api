@@ -6,29 +6,26 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 
 const SERVER_PORT = process.env.PORT || 3100;
-
-// Connect to Database
-mongoose.connect(config.database, { 
+const DB_OPTIONS = {
   useNewUrlParser: true,
   useUnifiedTopology: true
-});
+};
 
-// On connection
-mongoose.connection.on("connected", () => console.log('Connected to database ' + config.database));
-
-// On db error
-mongoose.connection.on("error", (error) => console.log('Database error ' + error));
+// Connect to Database
+mongoose.connect(config.database, DB_OPTIONS)
+  .then(_res => console.log('Connected to database ' + config.database))
+  .catch(error => console.log('Database error ' + error));
 
 const app = express();
 
 // Enables cors Middleware
 app.use(cors());
 
-// Set Static Folder
-app.use(express.static(path.join(__dirname, 'public')));
+// // Set Static Folder
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // Body Parser replace as it was depricated
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '20mb' }));
 
 // Passport Middleware
 app.use(passport.initialize());
