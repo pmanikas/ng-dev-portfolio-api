@@ -13,10 +13,18 @@ const DB_OPTIONS = {
   useUnifiedTopology: true
 };
 
+let connectionStatus = 'INIT';
+
 const startDBConnection = async () => {
-  mongoose.connect(config.database, DB_OPTIONS)
-    .then(_res => console.log('Connected to database ' + config.database))
-    .catch(error => console.log('Database error ' + error));
+  await mongoose.connect(config.database, DB_OPTIONS)
+    .then(_res => {
+      console.log('Connected to database ' + config.database);
+      connectionStatus = 'CONNECTED';
+    })
+    .catch(error => {
+      console.log('Database error ' + error);
+      connectionStatus = 'ERROR';
+    });
 }
 
 const initApp = async () => {
@@ -37,6 +45,10 @@ const initApp = async () => {
   app.use(passport.initialize());
   app.use(passport.session());
   require('./config/passport')(passport);
+
+  app.get('/', (req, res) => {
+    res.send(connectionStatus);
+  })
   
   // Call routes
   require('./routes/index')(app);
