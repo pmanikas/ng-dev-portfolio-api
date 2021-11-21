@@ -17,7 +17,7 @@ let connectionStatus = 'INIT';
 
 const startDBConnection = async () => {
   await mongoose.connect(config.database, DB_OPTIONS)
-    .then(res => {
+    .then(_res => {
       console.log(`Connected to database ${config.database}`);
       connectionStatus = `CONNECTED`;
     })
@@ -39,23 +39,12 @@ const initApp = async () => {
   app.use(express.static(path.join(__dirname, 'public')));
   
   // Body Parser replace as it was depricated
-  app.use(express.json({ limit: '20mb' }));
+  app.use(express.json({ limit: '10mb' }));
   
   // Passport Middleware
   app.use(passport.initialize());
   app.use(passport.session());
   require('./config/passport')(passport);
-
-  // DEV - return connection status
-  app.get('/', (req, res) => res.send(
-    `
-      Status: ${connectionStatus}
-      <br>
-      IP: ${req.ip}
-      <br>
-      HEADERS: ${JSON.stringify(req.headers)}
-    `
-  ));
   
   // Call routes
   require('./routes/index')(app);
