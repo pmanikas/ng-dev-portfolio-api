@@ -6,34 +6,43 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 
 const SERVER_PORT = process.env.PORT || 3100;
+
+// Connect to Database
 const DB_OPTIONS = {
   useNewUrlParser: true,
   useUnifiedTopology: true
 };
 
-// Connect to Database
-mongoose.connect(config.database, DB_OPTIONS)
-  .then(_res => console.log('Connected to database ' + config.database))
-  .catch(error => console.log('Database error ' + error));
+const startDBConnection = async () => {
+  mongoose.connect(config.database, DB_OPTIONS)
+    .then(_res => console.log('Connected to database ' + config.database))
+    .catch(error => console.log('Database error ' + error));
+}
 
-const app = express();
+const initApp = async () => {
+  await startDBConnection();
 
-// Enables cors Middleware
-app.use(cors());
+  const app = express();
+  
+  // Enables cors Middleware
+  app.use(cors());
+  
+  // // Set Static Folder
+  app.use(express.static(path.join(__dirname, 'public')));
+  
+  // Body Parser replace as it was depricated
+  app.use(express.json({ limit: '20mb' }));
+  
+  // Passport Middleware
+  app.use(passport.initialize());
+  app.use(passport.session());
+  require('./config/passport')(passport);
+  
+  // Call routes
+  require('./routes/index')(app);
+  
+  // Start Server
+  app.listen(SERVER_PORT, () => console.log(`Server is running on http://localhost:${SERVER_PORT}`));
+}
 
-// // Set Static Folder
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// Body Parser replace as it was depricated
-app.use(express.json({ limit: '20mb' }));
-
-// Passport Middleware
-app.use(passport.initialize());
-app.use(passport.session());
-require('./config/passport')(passport);
-
-// Call routes
-require('./routes/index')(app);
-
-// Start Server
-app.listen(SERVER_PORT, () => console.log(`Server is running on http://localhost:${SERVER_PORT}`));
+initApp();
