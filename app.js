@@ -23,7 +23,7 @@ const startDBConnection = async () => {
     })
     .catch(error => {
       console.log('Database error ' + error);
-      connectionStatus = 'ERROR';
+      connectionStatus = `ERROR ${error}`;
     });
 }
 
