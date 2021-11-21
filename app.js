@@ -8,23 +8,10 @@ const config = require('./config/database');
 const SERVER_PORT = process.env.PORT || 3100;
 
 // Connect to Database
-const DB_OPTIONS = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-};
-
-let connectionStatus = 'INIT';
-
 const startDBConnection = async () => {
-  await mongoose.connect(config.database, DB_OPTIONS)
-    .then(_res => {
-      console.log(`Connected to database ${config.database}`);
-      connectionStatus = `CONNECTED`;
-    })
-    .catch(error => {
-      console.log(`Database error ${error}`);
-      connectionStatus = `ERROR ${error}`;
-    });
+  await mongoose.connect(config.database)
+    .then(_res => console.log(`Connected to database ${config.database}`))
+    .catch(error => console.log(`Database error ${error}`));
 }
 
 const initApp = async () => {
