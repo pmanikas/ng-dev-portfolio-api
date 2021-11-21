@@ -17,12 +17,12 @@ let connectionStatus = 'INIT';
 
 const startDBConnection = async () => {
   await mongoose.connect(config.database, DB_OPTIONS)
-    .then(_res => {
-      console.log('Connected to database ' + config.database);
-      connectionStatus = 'CONNECTED';
+    .then(res => {
+      console.log(`Connected to database ${config.database}`);
+      connectionStatus = `CONNECTED`;
     })
     .catch(error => {
-      console.log('Database error ' + error);
+      console.log(`Database error ${error}`);
       connectionStatus = `ERROR ${error}`;
     });
 }
@@ -46,9 +46,16 @@ const initApp = async () => {
   app.use(passport.session());
   require('./config/passport')(passport);
 
-  app.get('/', (req, res) => {
-    res.send(connectionStatus);
-  })
+  // DEV - return connection status
+  app.get('/', (req, res) => res.send(
+    `
+      Status: ${connectionStatus}
+      <br>
+      IP: ${req.ip}
+      <br>
+      HEADERS: ${JSON.stringify(req.headers)}
+    `
+  ));
   
   // Call routes
   require('./routes/index')(app);
