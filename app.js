@@ -7,14 +7,13 @@ const config = require('./config/database');
 
 const SERVER_PORT = process.env.PORT || 3100;
 
-// Connect to Database
-const startDBConnection = async () => {
+async function startDBConnection() {
   await mongoose.connect(config.database)
     .then(_res => console.log(`Connected to database ${config.database}`))
     .catch(error => console.log(`Database error ${error}`));
 }
 
-const initApp = async () => {
+async function initApp() {
   await startDBConnection();
 
   const app = express();
@@ -22,7 +21,7 @@ const initApp = async () => {
   // Enables cors Middleware
   app.use(cors());
   
-  // // Set Static Folder
+  // Set Static Folder
   app.use(express.static(path.join(__dirname, 'public')));
   
   // Body Parser replace as it was depricated
