@@ -1,4 +1,4 @@
-const Article = require("../models/article.model");
+const Article = require("./../models/article.model");
 
 const article = Article;
 
@@ -50,7 +50,7 @@ exports.deleteById = (req, res) => {
           message: `Article with id ${id} was not found!`
         });
       }
-      
+
       else res.send();
     })
     .catch(error => res.status(500).send({ message: error.message }));

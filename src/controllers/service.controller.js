@@ -1,64 +1,64 @@
-const Project = require("../models/project.model");
+const Service = require("./../models/service.model");
 
-const project = Project;
+const service = Service;
 
-// Retrieve all Projects from the database.
+// Retrieve all Services from the database.
 exports.getAll = (req, res) => {
-  project.find({})
+  service.find({})
     .then(data => res.send(data))
     .catch(error => res.status(500).send({ message: error.message }));
 };
 
-// Find a single Project with an id
+// Find a single Service with an id
 exports.getById = (req, res) => {
   const id = req.params.id;
-  project.findById(id)
+  service.findById(id)
     .then(data => {
-      if (!data) res.status(404).send({ message: `Project with id ${id} was not found!` });
+      if (!data) res.status(404).send({ message: `Service with id ${id} was not found!` });
 
       else res.send(data);
     })
     .catch(error => res.status(500).send({ message: error.message }));
 };
 
-// Create a new Project
+// Create a new Service
 exports.create = async (req, res) => {
-  project.create(req.body)
+  service.create(req.body)
     .then(data => res.send(data))
     .catch(error => res.status(500).send({ message: error.message }));
 };
 
 
-// Update a Project by the id in the request
+// Update a Service by the id in the request
 exports.update = async (req, res) => {
-  project.findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false })
+  service.findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false })
     .then(data => {
-      if (!data) res.status(404).send({ message: `Project with id ${id} was not found!` });
+      if (!data) res.status(404).send({ message: `Service with id ${id} was not found!` });
 
       else res.send(req.body);
     })
     .catch(error => res.status(500).send({ message: error.message }));
 };
 
-// Delete a Project with the specified id in the request
+// Delete a Service with the specified id in the request
 exports.deleteById = (req, res) => {
   const id = req.params.id;
-  project.findByIdAndRemove(id)
+  service.findByIdAndRemove(id)
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Project with id ${id} was not found!`
+          message: `Service with id ${id} was not found!`
         });
       }
-      
+
       else res.send();
     })
     .catch(error => res.status(500).send({ message: error.message }));
 };
 
-// Delete all Projects from the database.
+// Delete all Services from the database.
 exports.deleteAll = (req, res) => {
-  project.deleteMany()
+  service.deleteMany()
     .then(_data => res.send())
     .catch(error => res.status(500).send({ message: error.message }));
 };

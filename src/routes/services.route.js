@@ -1,8 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const passport = require('passport');
-const servicesController = require('../controllers/service.controller');
 
+const servicesController = require('./../controllers/service.controller');
+
+const router = express.Router();
 const authGuard = passport.authenticate('jwt', { session: false });
 
 // Get All Services

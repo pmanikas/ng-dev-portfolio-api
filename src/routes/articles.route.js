@@ -1,8 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const passport = require('passport');
-const articlesController = require('../controllers/articles.controller');
 
+const articlesController = require('./../controllers/articles.controller');
+
+const router = express.Router();
 const authGuard = passport.authenticate('jwt', { session: false });
 
 // Get All Articles
