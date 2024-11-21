@@ -24,6 +24,6 @@ npm run startwatch
 
 or
 
-```
+``` bash
 yarn startwatch
 ```
