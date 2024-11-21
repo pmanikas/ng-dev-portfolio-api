@@ -31,7 +31,7 @@ async function initApp() {
   // Passport Middleware
   app.use(passport.initialize());
   app.use(passport.session());
-  require('./config/passport')(passport);
+  require('./middleware/passport')(passport);
 
   // Call routes
   require('./routes/index')(app);
