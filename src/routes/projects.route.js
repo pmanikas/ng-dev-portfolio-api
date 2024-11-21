@@ -1,8 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const passport = require('passport');
-const projectsController = require('../controllers/project.controller');
 
+const projectsController = require('./../controllers/project.controller');
+
+const router = express.Router();
 const authGuard = passport.authenticate('jwt', { session: false });
 
 // Get All Projects

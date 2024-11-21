@@ -1,8 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const passport = require('passport');
-const usersController = require('../controllers/user.controller');
 
+const usersController = require('./../controllers/user.controller');
+
+const router = express.Router();
 const authGuard = passport.authenticate('jwt', { session: false });
 
 // Validate

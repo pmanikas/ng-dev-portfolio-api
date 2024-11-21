@@ -1,8 +1,10 @@
-const User = require("../models/user.model");
-const user = User;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('../config/database');
+
+const User = require("./../models/user.model");
+const config = require('./../config/database');
+
+const user = User;
 
 const TOKEN_EXPIRATION = 604800; // 1 week
 
@@ -11,8 +13,8 @@ const comparePassword = (candidatePassword, user, res) => {
     .then(isMatch => {
       if (isMatch) {
         const token = jwt.sign(
-          { data: user }, 
-          config.secret, 
+          { data: user },
+          config.secret,
           { expiresIn: TOKEN_EXPIRATION }
         );
         res.json({ token: 'JWT ' + token });
