@@ -4,6 +4,8 @@ const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 
+const sanitizeString = require("./../utilities/strings").sanitizeFileName;
+
 const bucketName = process.env.AWS_BUCKET_NAME;
 const region = process.env.AWS_BUCKET_REGION;
 const accessKeyId = process.env.AWS_ACCESS_KEY;
@@ -20,10 +22,10 @@ module.exports = uploadToS3 = multer({
         s3,
         bucket: bucketName,
         metadata: function (req, file, cb) {
-            cb(null, { fieldName: file.originalname });
+            cb(null, { fieldName: sanitizeString(file.originalname) });
         },
         key: (req, file, cb) => {
-            let finalFileName = file.originalname;
+            let finalFileName = sanitizeString(file.originalname);
             cb(null, finalFileName);
         },
     }),
