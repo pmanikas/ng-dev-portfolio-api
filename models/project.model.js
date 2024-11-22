@@ -19,10 +19,23 @@ const ProjectSchema = mongoose.Schema({
     type: {
         type: String,
     },
+    modified_date: {
+        type: Date,
+        default: Date.now,
+    },
+    created_date: {
+        type: Date,
+        default: Date.now,
+        immutable: true
+    },
+    order: {
+        type: Number,
+    },
     _model: {
         type: String,
         required: true,
         default: "project",
+        immutable: true
     },
 });
 

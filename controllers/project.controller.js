@@ -6,6 +6,7 @@ const project = Project;
 exports.getAll = (req, res) => {
     project
         .find({})
+        .sort({ order: 1, created_date: -1 })
         .then((data) => res.send(data))
         .catch((error) => res.status(500).send({ message: error.message }));
 };
@@ -35,14 +36,16 @@ exports.create = async (req, res) => {
 
 // Update a Project by the id in the request
 exports.update = async (req, res) => {
+    req.body.modified_date = Date.now();
+
     project
-        .findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false })
+        .findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false, new: true })
         .then((data) => {
             if (!data)
                 res.status(404).send({
                     message: `Project with id ${id} was not found!`,
                 });
-            else res.send(req.body);
+            else res.send(data);
         })
         .catch((error) => res.status(500).send({ message: error.message }));
 };
