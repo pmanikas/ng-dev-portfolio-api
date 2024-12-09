@@ -31,6 +31,9 @@ const ProjectSchema = mongoose.Schema({
     order: {
         type: Number,
     },
+    iframeUrl: {
+        type: String,
+    },
     _model: {
         type: String,
         required: true,
